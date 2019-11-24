@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hydrantAPI.apps.HydrantapiConfig',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
