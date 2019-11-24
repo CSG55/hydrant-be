@@ -1,6 +1,7 @@
 # serializers.py
 from rest_framework import serializers
 from .models.hydrant import Hydrant
+from .models.review import Review
 
 from django.contrib.auth import get_user_model # If used custom user model
 UserModel = get_user_model()
@@ -25,4 +26,10 @@ class HydrantSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Hydrant
         fields = ('id', 'name', 'description', 'long', 'lat', 'created_at', 'updated_at')
+
+class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+    hydrant_id = serializers.RelatedField(source='hydrant.id', read_only=True)
+    class Meta:
+        model = Review
+        fields = ('id', 'hydrant_id', 'created_by', 'review_text', 'rating', 'created_at', 'updated_at')
 

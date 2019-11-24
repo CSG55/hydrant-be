@@ -4,11 +4,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 
 from hydrantAPI.serializers import HydrantSerializer
-from hydrantAPI.models.hydrant import Hydrant
+from hydrantAPI.models.review import Review
 
 
-class HydrantViewSet(viewsets.ModelViewSet):
-    queryset = Hydrant.objects.all()
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
     serializer_class = HydrantSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['id', 'name']
+    filterset_fields = ['id']

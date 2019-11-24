@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from hydrantAPI.serializers import UserSerializer
 
 
-class CreateUserView(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [
         permissions.AllowAny # Or anon users can't register
