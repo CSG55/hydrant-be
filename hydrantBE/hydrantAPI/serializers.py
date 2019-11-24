@@ -23,12 +23,13 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "password", "email")
 
 class HydrantSerializer(serializers.HyperlinkedModelSerializer):
+    created_by_id = serializers.ReadOnlyField(source='created_by.id', read_only=True)
     class Meta:
         model = Hydrant
-        fields = ('id', 'name', 'description', 'long', 'lat', 'created_at', 'updated_at')
+        fields = ('id', 'created_by_id', 'name', 'description', 'long', 'lat', 'created_at', 'updated_at')
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
-    hydrant_id = serializers.RelatedField(source='hydrant.id', read_only=True)
+    # hydrant_id = serializers.ReadOnlyField(source='hydrant.id', read_only=True)
     class Meta:
         model = Review
         fields = ('id', 'hydrant_id', 'created_by', 'review_text', 'rating', 'created_at', 'updated_at')

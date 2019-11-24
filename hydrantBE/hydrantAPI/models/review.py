@@ -1,6 +1,7 @@
 from django.db import models
 from .hydrant import Hydrant
 
+
 class Review(models.Model):
     created_by = models.CharField(max_length=100)
     review_text = models.CharField(max_length=1000)
