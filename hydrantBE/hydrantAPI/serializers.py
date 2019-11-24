@@ -1,6 +1,6 @@
 # serializers.py
 from rest_framework import serializers
-from models.hydrant import Hydrant
+from .models.hydrant import Hydrant
 
 class HydrantSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

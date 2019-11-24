@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from .serializers import HydrantSerializer
-from .models.hydrant import Hydrant
+from hydrantAPI.serializers import HydrantSerializer
+from hydrantAPI.models.hydrant import Hydrant
 
 
 class HydrantViewSet(viewsets.ModelViewSet):
