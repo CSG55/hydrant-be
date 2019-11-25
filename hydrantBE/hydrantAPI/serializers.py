@@ -47,11 +47,8 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
         print(validated_data)
 
         hydrant_id = self.initial_data['hydrant_id']
-        if Hydrant.objects.filter(id=hydrant_id).count():
-            print('gooooood')
-        else:
-            print('baaaaaaaaaaad')
-            return
+        if not Hydrant.objects.filter(id=hydrant_id).count():
+            raise serializers.ValidationError("The hydrant id provided does not exist.")
 
         review = Review.objects.create(
             rating=validated_data['rating'],
@@ -59,7 +56,6 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
             created_by_id = self.context['request'].user.id,
             hydrant_id = self.initial_data['hydrant_id']
         )
-        # delete
 
         review.save()
         return review
