@@ -12,4 +12,4 @@ class Review(models.Model):
     created_by = models.ForeignKey(User, related_name='review_created_by_user', on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.name
+        return str(self.id)

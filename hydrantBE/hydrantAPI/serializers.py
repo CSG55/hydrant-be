@@ -42,8 +42,20 @@ class HydrantSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'description', 'long', 'lat', 'created_at', 'updated_at', 'created_by_id')
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
-    hydrant_id = serializers.ReadOnlyField(source='hydrant.id', read_only=True)
+    hydrant_id = serializers.CharField(source='hydrant.id')
+    def create(self, validated_data):
+        print(validated_data)
+        review = Review.objects.create(
+            rating=validated_data['rating'],
+            review_text=validated_data['review_text'],
+            created_by_id = self.context['request'].user.id,
+            hydrant_id = validated_data['hydrant_id']
+        )
+        review.save()
+        return review
+
+
     class Meta:
         model = Review
-        fields = ('id', 'hydrant_id', 'created_by', 'review_text', 'rating', 'created_at', 'updated_at')
+        fields = ('id', 'hydrant_id', 'created_by_id', 'review_text', 'rating', 'created_at', 'updated_at')
 
