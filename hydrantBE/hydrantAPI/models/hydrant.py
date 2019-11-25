@@ -6,11 +6,10 @@ class Hydrant(models.Model):
     description = models.CharField(max_length=1000)
     long = models.FloatField()
     lat = models.FloatField()
-
-    created_by = models.ForeignKey(User, related_name='created_by_user', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
+    created_by = models.ForeignKey(User, related_name='hydrant_created_by_user', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

@@ -5,6 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from hydrantAPI.serializers import HydrantSerializer
 from hydrantAPI.models.hydrant import Hydrant
+from django.contrib.auth.models import User
 
 
 class HydrantViewSet(viewsets.ModelViewSet):
@@ -12,3 +13,5 @@ class HydrantViewSet(viewsets.ModelViewSet):
     serializer_class = HydrantSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['id', 'name']
+    
+
