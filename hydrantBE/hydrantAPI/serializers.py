@@ -26,9 +26,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 class HydrantSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
-        print(self.context['request'].user.id)
-        print('################################')
-        print(validated_data)
         hydrant = Hydrant.objects.create(
             name=validated_data['name'],
             description=validated_data['description'],
@@ -47,8 +44,6 @@ class HydrantSerializer(serializers.HyperlinkedModelSerializer):
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     hydrant_id = serializers.IntegerField(source='hydrant.id')
     def create(self, validated_data):
-        print('################################')
-        print(validated_data)
 
         hydrant_id = self.initial_data['hydrant_id']
         if not Hydrant.objects.filter(id=hydrant_id).count():

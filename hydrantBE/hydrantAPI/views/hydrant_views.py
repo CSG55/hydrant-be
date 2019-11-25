@@ -10,6 +10,6 @@ class HydrantViewSet(viewsets.ModelViewSet):
     queryset = Hydrant.objects.all()
     serializer_class = HydrantSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['id', 'name']
+    filterset_fields = ['id', 'name', 'long', 'lat']
     
 
