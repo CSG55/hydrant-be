@@ -42,15 +42,25 @@ class HydrantSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'description', 'long', 'lat', 'created_at', 'updated_at', 'created_by_id')
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
-    hydrant_id = serializers.CharField(source='hydrant.id')
+    hydrant_id = serializers.IntegerField(source='hydrant.id')
     def create(self, validated_data):
         print(validated_data)
+
+        hydrant_id = self.initial_data['hydrant_id']
+        if Hydrant.objects.filter(id=hydrant_id).count():
+            print('gooooood')
+        else:
+            print('baaaaaaaaaaad')
+            return
+
         review = Review.objects.create(
             rating=validated_data['rating'],
             review_text=validated_data['review_text'],
             created_by_id = self.context['request'].user.id,
-            hydrant_id = validated_data['hydrant_id']
+            hydrant_id = self.initial_data['hydrant_id']
         )
+        # delete
+
         review.save()
         return review
 
