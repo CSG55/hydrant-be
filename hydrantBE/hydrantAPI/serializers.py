@@ -27,12 +27,14 @@ class UserSerializer(serializers.ModelSerializer):
 class HydrantSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         print(self.context['request'].user.id)
+        print('################################')
         print(validated_data)
         hydrant = Hydrant.objects.create(
             name=validated_data['name'],
             description=validated_data['description'],
             long=validated_data['long'],
             lat=validated_data['lat'],
+            image_url=validated_data['image_url'],
             created_by_id = self.context['request'].user.id
         )
         hydrant.save()
@@ -40,11 +42,12 @@ class HydrantSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Hydrant
-        fields = ('id', 'name', 'description', 'long', 'lat', 'created_at', 'updated_at', 'created_by_id')
+        fields = ('id', 'name', 'description', 'long', 'lat', 'image_url', 'created_at', 'updated_at', 'created_by_id')
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     hydrant_id = serializers.IntegerField(source='hydrant.id')
     def create(self, validated_data):
+        print('################################')
         print(validated_data)
 
         hydrant_id = self.initial_data['hydrant_id']
