@@ -2,7 +2,6 @@
 from django.conf.urls import url
 from django.urls import include, path
 from rest_framework import routers
-# from rest_framework.authtoken.views import obtain_auth_token 
 
 from .views.hydrant_views import HydrantViewSet
 from .views.user_views import UserViewSet, CustomObtainAuthToken
