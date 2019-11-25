@@ -1,10 +1,11 @@
 # myapi/urls.py
+from django.conf.urls import url
 from django.urls import include, path
 from rest_framework import routers
-from rest_framework.authtoken.views import obtain_auth_token 
+# from rest_framework.authtoken.views import obtain_auth_token 
 
 from .views.hydrant_views import HydrantViewSet
-from .views.user_views import UserViewSet
+from .views.user_views import UserViewSet, CustomObtainAuthToken
 from .views.review_views import ReviewViewSet
 from .models.hydrant import Hydrant
 
@@ -18,5 +19,6 @@ router.register(r'reviews', ReviewViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'), 
+    path('authenticate/', CustomObtainAuthToken.as_view()),
+
 ]
