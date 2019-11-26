@@ -24,23 +24,6 @@ class UserSerializer(serializers.ModelSerializer):
         # Tuple of serialized model fields (see link [2])
         fields = ("id", "username", "password", "email")
 
-class HydrantSerializer(serializers.HyperlinkedModelSerializer):
-    def create(self, validated_data):
-        hydrant = Hydrant.objects.create(
-            name=validated_data['name'],
-            description=validated_data['description'],
-            long=validated_data['long'],
-            lat=validated_data['lat'],
-            image_url=validated_data['image_url'],
-            created_by_id = self.context['request'].user.id
-        )
-        hydrant.save()
-        return hydrant
-
-    class Meta:
-        model = Hydrant
-        fields = ('id', 'name', 'description', 'long', 'lat', 'image_url', 'created_at', 'updated_at', 'created_by_id')
-
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     hydrant_id = serializers.IntegerField(source='hydrant.id')
     def create(self, validated_data):
@@ -63,4 +46,23 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Review
         fields = ('id', 'hydrant_id', 'created_by_id', 'review_text', 'rating', 'created_at', 'updated_at')
+
+
+class HydrantSerializer(serializers.HyperlinkedModelSerializer):
+    reviews = ReviewSerializer(source='review_set', many=True)
+    def create(self, validated_data):
+        hydrant = Hydrant.objects.create(
+            name=validated_data['name'],
+            description=validated_data['description'],
+            long=validated_data['long'],
+            lat=validated_data['lat'],
+            image_url=validated_data['image_url'],
+            created_by_id = self.context['request'].user.id
+        )
+        hydrant.save()
+        return hydrant
+
+    class Meta:
+        model = Hydrant
+        fields = '__all__'
 
