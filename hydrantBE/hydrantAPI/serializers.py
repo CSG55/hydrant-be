@@ -45,7 +45,7 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'hydrant_id', 'created_by_id', 'review_text', 'rating', 'created_at', 'updated_at')
+        fields = ('id', 'title', 'hydrant_id', 'created_by_id', 'review_text', 'rating', 'created_at', 'updated_at')
 
 
 class HydrantSerializer(serializers.HyperlinkedModelSerializer):
