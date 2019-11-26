@@ -49,7 +49,7 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class HydrantSerializer(serializers.HyperlinkedModelSerializer):
-    reviews = ReviewSerializer(source='review_set', many=True)
+    reviews = ReviewSerializer(source='review_set', many=True, read_only=True)
     def create(self, validated_data):
         hydrant = Hydrant.objects.create(
             name=validated_data['name'],
