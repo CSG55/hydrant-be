@@ -14,3 +14,7 @@ class Hydrant(models.Model):
 
     def __str__(self):
         return self.name
+
+    # @property
+    # def avg_rating(self):
+    #     return self.review_set.all().aggregate(Avg('rating'))

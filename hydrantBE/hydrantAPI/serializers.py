@@ -62,5 +62,4 @@ class HydrantSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Hydrant
-        fields = '__all__'
-
+        fields = ('id', 'name', 'created_by_id', 'description', 'created_at', 'updated_at', 'long', 'lat', 'image_url', 'reviews')
