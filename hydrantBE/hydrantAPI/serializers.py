@@ -4,8 +4,7 @@ from .models.hydrant import Hydrant
 from .models.review import Review
 from django.contrib.auth.models import User
 
-
-from django.contrib.auth import get_user_model # If used custom user model
+from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,13 +14,12 @@ class UserSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             email=validated_data['email']
         )
-        user.set_password(validated_data['password'])
+        user.set_password(validated_data['password']) # set_password encrypts the password text
         user.save()
 
         return user
     class Meta:
         model = UserModel
-        # Tuple of serialized model fields (see link [2])
         fields = ("id", "username", "password", "email")
 
 class ReviewSerializer(serializers.HyperlinkedModelSerializer):
@@ -35,7 +33,7 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
         review = Review.objects.create(
             rating=validated_data['rating'],
             review_text=validated_data['review_text'],
-            created_by_id = self.context['request'].user.id,
+            created_by_id = self.context['request'].user.id, # id of current logged-in user is set to created_by_id
             hydrant_id = self.initial_data['hydrant_id']
         )
 
@@ -49,7 +47,7 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class HydrantSerializer(serializers.HyperlinkedModelSerializer):
-    reviews = ReviewSerializer(source='review_set', many=True, read_only=True)
+    reviews = ReviewSerializer(source='review_set', many=True, read_only=True) # include reviews associated with hydrants
     def create(self, validated_data):
         hydrant = Hydrant.objects.create(
             name=validated_data['name'],
@@ -57,7 +55,7 @@ class HydrantSerializer(serializers.HyperlinkedModelSerializer):
             long=validated_data['long'],
             lat=validated_data['lat'],
             image_url=validated_data['image_url'],
-            created_by_id = self.context['request'].user.id
+            created_by_id = self.context['request'].user.id # id of current logged-in user is set to created_by_id
         )
         hydrant.save()
         return hydrant
