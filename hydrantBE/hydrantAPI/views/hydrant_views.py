@@ -8,7 +8,7 @@ from hydrantAPI.models.hydrant import Hydrant
 
 
 class HydrantViewSet(viewsets.ModelViewSet):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     queryset = Hydrant.objects.all()
     serializer_class = HydrantSerializer
     filter_backends = [DjangoFilterBackend]

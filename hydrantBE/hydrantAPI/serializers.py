@@ -32,6 +32,7 @@ class ReviewSerializer(serializers.HyperlinkedModelSerializer):
         print(self.context['request'].user.id)
         review = Review.objects.create(
             rating=validated_data['rating'],
+            title=validated_data['title'],
             review_text=validated_data['review_text'],
             created_by_id = self.context['request'].user.id, # id of current logged-in user is set to created_by_id
             hydrant_id = self.initial_data['hydrant_id']
