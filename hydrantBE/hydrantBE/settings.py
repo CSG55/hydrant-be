@@ -25,7 +25,7 @@ SECRET_KEY = '!y-r*i(wi40@6k=sn0sqdj*8ufs5dvzj&99io9mhhbg8ui^^e%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hydrant.gq']
 
 
 # Application definition
