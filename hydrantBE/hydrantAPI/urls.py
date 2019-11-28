@@ -9,15 +9,15 @@ from .views.review_views import ReviewViewSet
 from .models.hydrant import Hydrant
 
 router = routers.DefaultRouter()
-router.register(r'hydrants', HydrantViewSet)
-router.register(r'users', UserViewSet)
-router.register(r'reviews', ReviewViewSet)
+router.register(r'api/hydrants', HydrantViewSet)
+router.register(r'api/users', UserViewSet)
+router.register(r'api/reviews', ReviewViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('authenticate/', CustomObtainAuthToken.as_view()),
+    path('api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/authenticate/', CustomObtainAuthToken.as_view()),
 
 ]
