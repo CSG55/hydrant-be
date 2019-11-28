@@ -156,3 +156,5 @@ LOGGING = {
         },
     },
 }
+
+SECURE_SSL_REDIRECT = False
