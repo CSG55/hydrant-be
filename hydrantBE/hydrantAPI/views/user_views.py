@@ -8,15 +8,14 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
-
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [
-        permissions.AllowAny # Or anon users can't register
+        permissions.AllowAny # This allows anonymous users to register
     ]
     serializer_class = UserSerializer
 
+    # restrincting admin/api views in django
     def get_permissions(self):
         if self.action == 'list':
             self.permission_classes = [IsSuperUser, ]
@@ -42,7 +41,6 @@ class IsSuperUser(permissions.BasePermission):
         return request.user and request.user.is_superuser
 
 class IsUser(permissions.BasePermission):
-
     def has_object_permission(self, request, view, obj):
         if request.user:
             if request.user.is_superuser:
