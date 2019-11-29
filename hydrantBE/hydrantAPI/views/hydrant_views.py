@@ -18,11 +18,24 @@ class HydrantViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Hydrant.objects.all() 
+
         rating = self.request.query_params.get('rating')
         name = self.request.query_params.get('name')
         lat = self.request.query_params.get('lat')
         long = self.request.query_params.get('long')
 
-        if rating:
-            queryset = Hydrant.objects.annotate(avg_rating=Avg('review__rating')).filter(avg_rating__startswith=rating)
+        filters={} # contains only the fields that user adds
+        if name:
+            filters['name'] = name
+        if lat:
+            filters['lat'] = lat
+        if long:
+            filters['long'] = long
+
+        queryset = queryset.filter(**filters)
+
+        if rating: # we filter by the average of all review (fkeys) ratings 
+            queryset = queryset.annotate(avg_rating=Avg('review__rating'))\
+                .filter(avg_rating__startswith=rating)
+
         return queryset
