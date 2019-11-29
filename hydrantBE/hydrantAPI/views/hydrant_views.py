@@ -15,24 +15,11 @@ class HydrantViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['id', 'name', 'long', 'lat']
 
-
+    # overriding default queryset to handle searching by "review__rating" foreign key
     def get_queryset(self):
         queryset = Hydrant.objects.all() 
 
         rating = self.request.query_params.get('rating')
-        name = self.request.query_params.get('name')
-        lat = self.request.query_params.get('lat')
-        long = self.request.query_params.get('long')
-
-        filters={} # contains only the fields that user adds
-        if name:
-            filters['name'] = name
-        if lat:
-            filters['lat'] = lat
-        if long:
-            filters['long'] = long
-
-        queryset = queryset.filter(**filters)
 
         if rating: # we filter by the average of all review (fkeys) ratings 
             queryset = queryset.annotate(avg_rating=Avg('review__rating'))\

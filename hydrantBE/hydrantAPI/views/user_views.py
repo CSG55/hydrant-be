@@ -8,12 +8,10 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
-
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [
-        permissions.AllowAny # Or anon users can't register
+        permissions.AllowAny # This allows anonymous users to register
     ]
     serializer_class = UserSerializer
 
