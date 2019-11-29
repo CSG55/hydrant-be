@@ -25,7 +25,7 @@ SECRET_KEY = '!y-r*i(wi40@6k=sn0sqdj*8ufs5dvzj&99io9mhhbg8ui^^e%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hydrant.gq', 'localhost']
 
 
 # Application definition
@@ -49,6 +49,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication', 
     ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ]
+
 }
 
 MIDDLEWARE = [
@@ -156,3 +160,5 @@ LOGGING = {
         },
     },
 }
+
+SECURE_SSL_REDIRECT = False
