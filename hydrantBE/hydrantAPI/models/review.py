@@ -9,7 +9,7 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
-    hydrant = models.ForeignKey(Hydrant, on_delete=models.CASCADE)
+    hydrant = models.ForeignKey(Hydrant, on_delete=models.CASCADE,)
     created_by = models.ForeignKey(User, related_name='review_created_by_user', on_delete=models.CASCADE)
     
     def __str__(self):
