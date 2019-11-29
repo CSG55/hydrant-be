@@ -14,5 +14,4 @@ class HydrantViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['id', 'name', 'long', 'lat']
 
-    
 
