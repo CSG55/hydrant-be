@@ -25,7 +25,7 @@ SECRET_KEY = '!y-r*i(wi40@6k=sn0sqdj*8ufs5dvzj&99io9mhhbg8ui^^e%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hydrant.gq', 'localhost']
+ALLOWED_HOSTS = ['hydrant.gq', 'localhost'] # api requests are allowed to come from these source urls
 
 
 # Application definition
