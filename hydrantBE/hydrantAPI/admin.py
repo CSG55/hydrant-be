@@ -5,7 +5,7 @@ from .models.review import Review
 class HydrantAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at', 'created_by')
 
-    # override save_model to set created_by field when admin is creating row
+    # override save_model to set created_by field when admin-view is creating row
     def save_model(self, request, obj, form, change):
         if not change:
             # the object is being created, so set the user
@@ -15,7 +15,7 @@ class HydrantAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at', 'created_by')
 
-    # override save_model to set created_by field when admin is creating row
+    # override save_model to set created_by field when admin-view is creating row
     def save_model(self, request, obj, form, change):
         if not change:
             # the object is being created, so set the user
